@@ -1,27 +1,33 @@
-<%= form_with(model: list, local: true) do |form| %>
-  <% if list.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(list.errors.count, "error") %> prohibited this list from being saved:</h2>
 
-      <ul>
-      <% list.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_with(model: list, local: true, class: "form-inline") do |form| %>
+    <% if list.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(list.errors.count, "error") %> prohibited this list from being saved:</h2>
+
+        <ul>
+        <% list.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <% if action_name == "edit" %>
+      <div class="field">
+        <%= form.check_box :completed, id: :list_completed %>
+      </div>
+    <% end %>
+
+    <div class="field form-group">
+      <%= form.text_field :description, id: :list_description, class: "form-control" %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description, id: :list_description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :completed %>
-    <%= form.check_box :completed, id: :list_completed %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit yield(:submit_button) %>
-  </div>
+    <div class="actions mt-1">
+      <%= form.submit yield(:submit_button), class: "btn btn-success mb-1 ml-1" %>
+    </div>
 <% end %>
+
+<!--form class="form-inline my-2 my-lg-0">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form-->
